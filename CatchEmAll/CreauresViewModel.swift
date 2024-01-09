@@ -12,21 +12,24 @@ class CreauresViewModel: ObservableObject {
     
     private struct Returned: Codable { //MARK: VERY IMPORTANT JSON values are Codable!
         var count: Int
-        var next: String?  // This url shoud really be an optional. Will show why in a while
+        var next: String? 
         var results: [Creature]
     }
     
     @Published var creaturesArray: [Creature] = []
-    
     @Published var urlString: String = "https://pokeapi.co/api/v2/pokemon/"
     @Published var count = 0
+    @Published var isLoading = false
+    
     
     func getData() async {
         print("🕸️ We are accessing the url \(urlString)")
+        isLoading = true
         
         // Convert urlString to a special URL type
         guard let url =  URL(string: urlString) else {
             print("😡 ERROR: Could not create a URL from \(urlString).")
+            isLoading = false
             return
         }
         
@@ -43,7 +46,9 @@ class CreauresViewModel: ObservableObject {
             self.urlString = returned.next ?? ""
             self.creaturesArray = self.creaturesArray + returned.results
             
+            isLoading = false
         } catch {
+            isLoading = false
             print("😡ERROR: Could not use URL at \(urlString) to get data and response.")
         }
         
