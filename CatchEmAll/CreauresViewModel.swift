@@ -12,7 +12,7 @@ class CreauresViewModel: ObservableObject {
     
     private struct Returned: Codable { //MARK: VERY IMPORTANT JSON values are Codable!
         var count: Int
-        var next: String  // This url shoud really be an optional. Will show why in a while
+        var next: String?  // This url shoud really be an optional. Will show why in a while
         var results: [Creature]
     }
     
@@ -40,8 +40,8 @@ class CreauresViewModel: ObservableObject {
             }
             
             self.count = returned.count
-            self.urlString = returned.next
-            self.creaturesArray = returned.results
+            self.urlString = returned.next ?? ""
+            self.creaturesArray = self.creaturesArray + returned.results
             
         } catch {
             print("😡ERROR: Could not use URL at \(urlString) to get data and response.")

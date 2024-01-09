@@ -62,7 +62,7 @@ struct DetailView: View {
                             .bold()
                             .foregroundStyle(.red)
                         
-                        Text(String(format: "%.1f", creatureDetailVM.weight))
+                        Text(String(format: "%.01f", creatureDetailVM.weight))
                             .font(.largeTitle)
                             .bold()
                     }
