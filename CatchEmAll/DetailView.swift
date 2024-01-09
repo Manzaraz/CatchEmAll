@@ -30,7 +30,7 @@ struct DetailView: View {
                         .resizable()
                         .scaledToFit()
                         .background(.white)
-                        .frame(maxWidth: 96)
+                        .frame(width: 96, height: 96)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .shadow(radius: 8, x: 5, y: 5)
                         .overlay {
@@ -39,9 +39,10 @@ struct DetailView: View {
                         }
                         .padding(.trailing)
                 } placeholder: {
-                    RoundedRectangle(cornerRadius: 10)
+                    Rectangle()
                         .foregroundStyle(.clear)
-                        .frame(maxWidth: 96, maxHeight: 96)
+                        .frame(width: 96, height: 96)
+                        .padding(.trailing)                    
                 }
                 
                 VStack (alignment: .leading) {

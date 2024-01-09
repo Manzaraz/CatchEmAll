@@ -17,7 +17,21 @@ class CreaureDetailViewModel: ObservableObject {
     }
     
     struct Sprite: Codable {
-        var front_default: String
+        var front_default: String?
+        var other: Other
+    }
+    
+    struct Other: Codable {
+        var officialArtwork: OfficialArtwork
+        
+        enum CodingKeys: String, CodingKey {
+            case officialArtwork = "official-artwork"
+        }
+    }
+    
+    
+    struct OfficialArtwork: Codable {
+        var front_default: String?
     }
     
     var urlString = ""
@@ -46,7 +60,7 @@ class CreaureDetailViewModel: ObservableObject {
             
             self.height = returned.height
             self.weight = returned.weight
-            self.imageUrl = returned.sprites.front_default
+            self.imageUrl = (returned.sprites.other.officialArtwork.front_default ?? returned.sprites.front_default) ?? ""
             
         } catch {
             print("😡ERROR: Could not use URL at \(urlString) to get data and response.")
