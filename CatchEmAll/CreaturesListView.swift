@@ -37,9 +37,17 @@ struct CreaturesListView: View {
                 .navigationTitle("Pokemon")
                 .toolbar {
                     ToolbarItem(placement: .bottomBar) {
+                        Button("Load All") {
+                            Task {
+                                await creaturesVM.loadAll()                                
+                            }
+                        }
+                    }
+                    ToolbarItem(placement: .status) {
                         Text("\(creaturesVM.creaturesArray.count) of \(creaturesVM.count) cretures")
                     }
                 }
+                
                 if creaturesVM.isLoading {
                     ProgressView()
                         .tint(.red)
