@@ -11,8 +11,8 @@ import Foundation
 class CreaureDetailViewModel: ObservableObject {
     
     private struct Returned: Codable { //MARK: VERY IMPORTANT JSON values are Codable!
-        var height: Double
-        var weight: Double
+        var height: Double?
+        var weight: Double?
         var sprites: Sprite
     }
     
@@ -58,9 +58,9 @@ class CreaureDetailViewModel: ObservableObject {
                 return
             }
             
-            self.height = returned.height
-            self.weight = returned.weight
-            self.imageUrl = (returned.sprites.other.officialArtwork.front_default ?? returned.sprites.front_default) ?? ""
+            self.height = returned.height ?? 0.0
+            self.weight = returned.weight ?? 0.0
+            self.imageUrl = returned.sprites.other.officialArtwork.front_default ?? "n/a" // Don't use empty string - it converts to a valid URL and won't create an error
             
         } catch {
             print("😡ERROR: Could not use URL at \(urlString) to get data and response.")
