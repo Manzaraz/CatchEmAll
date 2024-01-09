@@ -25,18 +25,24 @@ struct DetailView: View {
                 .padding()
             
             HStack {
-                Image(systemName: "figure.run.circle")
-                    .resizable()
-                    .scaledToFit()
-                    .backgroundStyle(.white)
-                    .frame(maxWidth: 96)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .shadow(radius: 8, x: 5, y: 5)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(.gray.opacity(0.5), lineWidth: 1)
-                    }
-                    .padding(.trailing)
+                AsyncImage(url: URL(string: creatureDetailVM.imageUrl)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .background(.white)
+                        .frame(maxWidth: 96)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .shadow(radius: 8, x: 5, y: 5)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(.gray.opacity(0.5), lineWidth: 1)
+                        }
+                        .padding(.trailing)
+                } placeholder: {
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundStyle(.clear)
+                        .frame(maxWidth: 96, maxHeight: 96)
+                }
                 
                 VStack (alignment: .leading) {
                     HStack (alignment: .top) {
@@ -48,8 +54,6 @@ struct DetailView: View {
                         Text(String(format: "%.1f", creatureDetailVM.height))
                             .font(.largeTitle)
                             .bold()
-                        
-                        
                     }
                     
                     HStack (alignment: .top) {
@@ -61,9 +65,7 @@ struct DetailView: View {
                         Text(String(format: "%.1f", creatureDetailVM.weight))
                             .font(.largeTitle)
                             .bold()
-                        
                     }
-                    
                 }
             }
             Spacer()
