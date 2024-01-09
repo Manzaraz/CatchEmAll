@@ -7,20 +7,16 @@
 
 import Foundation
 
+@MainActor
 class CreauresViewModel: ObservableObject {
     
     private struct Returned: Codable { //MARK: VERY IMPORTANT JSON values are Codable!
         var count: Int
         var next: String  // This url shoud really be an optional. Will show why in a while
-        var results: [Result]
+        var results: [Creature]
     }
     
-    struct Result: Codable, Hashable {
-        var name: String
-        var url: String // URL for detail on Pokemon
-    }
-    
-    @Published var creaturesArray: [Result] = []
+    @Published var creaturesArray: [Creature] = []
     
     @Published var urlString: String = "https://pokeapi.co/api/v2/pokemon/"
     @Published var count = 0
